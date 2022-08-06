@@ -1,0 +1,5 @@
+---
+'batch-render': patch
+---
+
+init
