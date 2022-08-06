@@ -17,6 +17,11 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: setup pnpm
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: latest
+          
       - name: setup node.js
         uses: actions/setup-node@v2
         with:
@@ -26,10 +31,6 @@ jobs:
       - name: setup npmrc
         run: |
           echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' >> .npmrc
-      - name: setup pnpm
-        uses: pnpm/action-setup@v2.0.1
-        with:
-          version: latest
 
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
