@@ -17,8 +17,10 @@
     "build": "tsup",
     "start": "pnpm build --watch",
     "test": "jest",
+    "lint": "eslint --fix ./src/**/* --ext .ts",
     "dev": "ts-node -r tsconfig-paths/register ./src/index.ts",
-    "release":"pnpm changesets publish"
+    "ci:publish": "changeset publish",
+    "ci:version": "changeset version"
   },
   "license": "ISC",
   "devDependencies": {
