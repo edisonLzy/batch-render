@@ -1,0 +1,66 @@
+{
+  "name": "batch-render",
+  "version": "0.0.1",
+  "description": "batch-render",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "types": "dist",
+  "scripts": {
+    "prepare": "husky install",
+    "prepublishOnly": "pnpm test && pnpm build",
+    "build": "tsup",
+    "start": "pnpm build --watch",
+    "test": "jest",
+    "dev": "ts-node -r tsconfig-paths/register ./src/index.ts"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "@changesets/cli": "^2.24.2",
+    "@commitlint/config-conventional": "^14.1.0",
+    "@types/configstore": "^6.0.0",
+    "@types/debug": "^4.1.7",
+    "@types/fs-extra": "^9.0.13",
+    "@types/jest": "^27.0.2",
+    "@types/lodash": "^4.14.182",
+    "@types/node": "^18.6.4",
+    "@typescript-eslint/eslint-plugin": "^5.3.0",
+    "@typescript-eslint/parser": "^5.3.0",
+    "commitlint": "^14.1.0",
+    "eslint": "^8.1.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^7.0.4",
+    "jest": "^27.3.1",
+    "lint-staged": "^11.2.6",
+    "prettier": "^2.4.1",
+    "ts-jest": "^27.0.7",
+    "ts-node": "^10.4.0",
+    "tsconfig-paths": "^4.0.0",
+    "tsup": "^6.2.1",
+    "typescript": "^4.7.4"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix"
+    ],
+    "*.{d.ts,json,md}": [
+      "prettier --write"
+    ]
+  },
+  "dependencies": {
+    "batch-render": "^0.0.1",
+    "configstore": "^6.0.0",
+    "debug": "^4.3.4",
+    "fast-glob": "^3.2.11",
+    "fs-extra": "^10.1.0",
+    "lodash": "^4.0.0",
+    "p-map": "^4.0.0"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "downlevelIteration": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
+    "module": "CommonJS",
+    "outDir": "./lib",
+    "strict": true,
+    "pretty": true,
+    "target": "ESNext",
+    "noImplicitThis": false,
+    "baseUrl": "./",
+    "declarationDir": "./types",
+    "emitDeclarationOnly": true,
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+      "@/*":["src/*"]
+    }
+  },
+  "include": ["src/**/*"]
+}
