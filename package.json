@@ -8,10 +8,10 @@
       "require": "./dist/index.js"
     }
   },
+  "types": "dist",
   "files": [
     "dist"
   ],
-  "types": "dist",
   "scripts": {
     "prepare": "husky install",
     "build": "tsup",

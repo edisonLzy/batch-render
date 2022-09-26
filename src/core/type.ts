@@ -19,8 +19,10 @@ export interface BatchRenderOption<T> {
   storeKey: string;
   renderStrategy?: RenderStrategy<T>;
   cwd?: string;
+  resolver?: ResolverCreator<T>[];
 }
 
+export type ResolverCreator<T = any> = (data: T) => (raw: string) => string;
 export interface MatchResult {
   path: string;
   name: string;

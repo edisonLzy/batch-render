@@ -2,27 +2,32 @@ import fs from 'fs-extra';
 import fg, { Entry } from 'fast-glob';
 import pMap from 'p-map';
 import { template } from 'lodash';
-import log from './log';
-
-import { BatchRenderOption, FileType, RenderStrategy, Result } from './type';
 import path from 'path';
+import { createResolver } from './resolver';
+
+import log from './log';
+import { BatchRenderOption, FileType, RenderStrategy, Result } from './type';
 import store from './store';
 
-const defaultSenderStrategy: RenderStrategy<any> = (content, data) => {
+const defaultRenderStrategy: RenderStrategy<any> = (content, data) => {
   const compile = template(content);
   return compile(data);
 };
+
 export default async function batchRender<T = any>({
   inputs,
   data,
   storeKey,
   cwd = process.cwd(),
-  renderStrategy = defaultSenderStrategy,
+  resolver = [],
+  renderStrategy = defaultRenderStrategy,
 }: BatchRenderOption<T>) {
   let patterns = inputs;
   if (typeof inputs === 'string') {
     patterns = [inputs];
   }
+
+  const finalResolver = createResolver(resolver, data);
 
   const matchEntries = await fg(inputs, {
     cwd,
@@ -32,19 +37,21 @@ export default async function batchRender<T = any>({
   });
 
   const manifest = await pMap<Entry, Result>(matchEntries, async (entry) => {
+    const outPath = finalResolver(entry.path);
     if (entry.dirent.isFile()) {
       const filePath = path.join(cwd, entry.path);
       const template = (await fs.readFile(filePath)).toString();
       const content = renderStrategy(template, data);
+
       return {
         type: FileType.FILE,
-        outPath: entry.path,
+        outPath: outPath,
         content: content,
       };
     } else {
       return {
         type: FileType.Directory,
-        outPath: entry.path,
+        outPath,
       };
     }
   });
